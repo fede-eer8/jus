@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('expedientecivil','ExpedienteCivilController');
+
+Route::get('dropdownlist','DataController@getCategorias');
+Route::get('dropdownlist/getmateria/{id}','DataController@getMaterias');
