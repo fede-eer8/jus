@@ -37,7 +37,7 @@
                    if(categoriaID)
                    {
                       $.ajax({
-                         url : 'dropdownlist/getmateria/' +categoriaID,
+                         url : 'dropdownlist/getmaterias/' +categoriaID,
                          type : "GET",
                          dataType : "json",
                          success:function(data)

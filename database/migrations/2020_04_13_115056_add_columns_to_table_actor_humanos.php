@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpedienteCivilsTable extends Migration
+class AddColumnsToTableActorHumanos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_civils', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            
+        Schema::table('actor_humanos', function (Blueprint $table) {
+            $table->string('edad');
+            $table->integer('replegal_id')->unsigned()->default(0);
         });
     }
 
@@ -27,6 +26,8 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expediente_civils');
+        Schema::table('actor_humanos', function (Blueprint $table) {
+            //
+        });
     }
 }

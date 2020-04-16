@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpedienteCivilsTable extends Migration
+class AddSlugToExpedienteCivil extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_civils', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            
+        Schema::table('expediente_civils', function (Blueprint $table) {
+            $table->string('slug')->unique();
+            $table->timestamps(); //crea los campos de crated-at y updated at
         });
     }
 
@@ -27,6 +26,8 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expediente_civils');
+        Schema::table('expediente_civils', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 }

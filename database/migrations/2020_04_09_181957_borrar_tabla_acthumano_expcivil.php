@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpedienteCivilsTable extends Migration
+class BorrarTablaActhumanoExpcivil1 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,7 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_civils', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            
-        });
+        // Schema::drop('acthumano_expcivil'); 
     }
 
     /**
@@ -27,6 +23,6 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expediente_civils');
+        // Schema::drop('acthumano_expcivil'); 
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Expediente Civil Create')
+@section('title', 'Expediente Civil')
 
 @section('sidebar')
     @parent
@@ -9,46 +9,30 @@
 @endsection
 
 @section('content')
+<a href="/expedientecivil/create" class="btn btn-primary">Crear Expediente Civil</a><hr>
+<div class="row">
+    @foreach($expedienteCivils as $expedienteCivil)
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">{{$expedienteCivil->nombre}}</div>
+                {{-- <img src="..." class="card-img-top" alt="..."> --}}
+                <div class="card-body">
+                    <h5 class="card-title">{{$expedienteCivil->slug}}</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Categoria: {{$expedienteCivil->categoria->cat_nombre}}</li>
+                  <li class="list-group-item">Materia: {{$expedienteCivil->materia->mat_nombre}}</li>
+                  <li class="list-group-item">Iniciado: {{$expedienteCivil->created_at->format('d/m/Y')}}</li>
 
-    <form class="form-group" method="POST" action="/expedientecivil">
-        @csrf
-        <div class="form-group">
-            <label for="nombre" class="for">Nombre</label>
-            <input name="nombre" type="text" class="form-control">
+                </ul>
+                <div class="card-body">
+                  <a href="/expedientecivil/{{$expedienteCivil->slug}}" class="btn btn-primary">Ver más...</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
         </div>
-        <div class="form-group">
-            <label for="">Categoría</label>   
-            <select id="categoria" name="categoria">
-                <option value="0">Seleccionar Categoria</option>
-                <option value="1">De conocimiento</option>
-                <option value="2">De conocimiento especial</option> 
-            </select>           
-           
-            <select disabled="disabled" class="subcat" id="materia" name="materia">
-                <option value="0">Seleccionar materia</option>
-                <option rel="1">accion de nulidad</option>
-                <option rel="1">accion declarativa</option>
-                <option rel="2">accion posesoria</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-    @endsection
-    @section('postJquery')
-    <script>
-        @parent
-        $(function(){
-            var $cat = $("#categoria"),
-                $subcat = $(".subcat");
-
-            $cat.on("change",function(){
-            var _rel = $(this).val();
-            $subcat.find("option").attr("style","");
-            $subcat.val("");
-            if(!_rel) return $subcat.prop("disabled",true);
-            $subcat.find("[rel~='"+_rel+"']").show();
-            $subcat.prop("disabled",false);
-            });
-        });  
-    </script>
-    @endsection
+        
+    @endforeach
+</div>
+@endsection

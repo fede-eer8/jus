@@ -18,4 +18,14 @@ Route::get('/', function () {
 Route::resource('expedientecivil','ExpedienteCivilController');
 
 Route::get('dropdownlist','DataController@getCategorias');
-Route::get('dropdownlist/getmateria/{id}','DataController@getMaterias');
+Route::get('dropdownlist/getmaterias/{id}','DataController@getMaterias');
+
+//Route::get('dropdownlist','DataController@getCategorias');
+Route::get('dropdown/getmaterias/{id}','ExpedienteCivilController@getMaterias');
+
+Route::get('expedientecivil/{expedientecivil}/actorhumano','ActorHumanoController@index');
+Route::post('expedientecivil/{expedientecivil}/actorhumano','ActorHumanoController@store');
+Route::post('expedientecivil/{expedientecivil}/actorhumanoupdate','ActorHumanoController@update');
+Route::delete('expedientecivil/{expedientecivil}/actorhumanodelete/{id}', 'ActorHumanoController@destroy');
+
+Route::post('expedientecivil/{expedientecivil}/representantelegal','RepresentanteLegalController@store');

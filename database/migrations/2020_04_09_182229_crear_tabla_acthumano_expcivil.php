@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpedienteCivilsTable extends Migration
+class CrearTablaActhumanoExpcivil extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_civils', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
+        // Schema::create('acthumano_expcivil', function (Blueprint $table) {
+        //     // $table->increments('id');
             
-        });
+            
+        //     // $table->timestamps();
+        // });
     }
 
     /**
@@ -27,6 +28,6 @@ class CreateExpedienteCivilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expediente_civils');
+        Schema::dropIfExists('acthumano_expcivil');
     }
 }

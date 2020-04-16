@@ -1,5 +1,5 @@
 <template>
-        <div class="container">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Select Categoria:</label>
-                            <select class='form-control' v-model='categoria' @change='getMaterias()'>
+                            <select name="categoria" class='form-control' v-model='categoria' @change='getMaterias()'>
                               <option value='0' >Select Categoria</option>
                               <option v-for='data in categorias' :value='data.id'>{{ data.cat_nombre }}</option>
                             </select>
@@ -16,7 +16,7 @@
 
                         <div class="form-group">
                             <label>Select Materia:</label>
-                            <select class='form-control' v-model='materia'>
+                            <select name="materia" class='form-control' v-model='materia'>
                               <option value='0' >Select Materia</option>
                               <option v-for='data in materias' :value='data.id'>{{ data.mat_nombre }}</option>
                             </select>
