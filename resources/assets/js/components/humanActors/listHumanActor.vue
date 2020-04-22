@@ -13,14 +13,15 @@
       </thead>
       <tbody>
       <tr v-for="(humanActor,index) in humanActors">
-          <td>{{humanActor.nombre}}</td>
-          <td>{{humanActor.apellido}}</td>
-          <td>{{humanActor.seudonimo}}</td>
-          <td>{{humanActor.edad}}</td>
-          <td>
-              <button class="btn btn-outline-primary" @click="editHumanActor(humanActor,index)"><i style="color:" class="fa fa-edit"></i></button>
-              <button class="btn btn-outline-danger" @click="deleteHumanActor(humanActor,index)"><i class="fa fa-trash"></i></button>
-          </td>
+        <td>{{humanActor.nombre}}</td>
+        <td>{{humanActor.apellido}}</td>
+        <td>{{humanActor.seudonimo}}</td>
+        <td>{{humanActor.edad}}</td>
+        <td>
+            <button class="btn btn-info btn-sm" @click="viewHumanActor(humanActor,index)"><i style="color:" class="fa fa-eye"></i></button>
+            <button class="btn btn-warning btn-sm" @click="editHumanActor(humanActor,index)"><i style="color:" class="fa fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm" @click="deleteHumanActor(humanActor,index)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -50,6 +51,9 @@
       })
     },
     methods: {
+      viewHumanActor(humanActor,index) {
+        EventBus.$emit('view-humanActor', humanActor)
+      },
       editHumanActor(humanActor,index) {
         this.id = index
         $('#editHumanActor').modal()
@@ -71,6 +75,7 @@
         })
       }
       },
+    
       mounted() {
       let currentRoute = window.location.pathname
       axios
@@ -83,4 +88,4 @@
       console.log('Component mounted.')
       }
   }
-</script>
+</script> 

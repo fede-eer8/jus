@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActorHumano extends Model
 {
+    protected $fillable = [
+        'nombre', 'apellido', 'seudonimo', 'edad' 
+    ];
+    
     public function expediente_civils() {
         return $this->belongsToMany('LegalIS\ExpedienteCivil','acthumano_expcivil','acthumano_id','expcivil_id');
     }

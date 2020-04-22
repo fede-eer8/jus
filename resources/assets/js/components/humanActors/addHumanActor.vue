@@ -13,58 +13,59 @@
                     <form @submit.prevent="saveActor">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input id="nombre" type="text" class="form-control" placeholder="Ingresa el nombre del actor" v-model="nombre">
+                            <input id="nombre" type="text" class="form-control form-control-sm" placeholder="Ingresa el nombre del actor" v-model="nombre">
                         </div>
                         <div class="form-group">
                             <label>Apellido</label>
-                            <input type="text" class="form-control" placeholder="Ingresa el apellido del actor" v-model="apellido">
+                            <input type="text" class="form-control form-control-sm" placeholder="Ingresa el apellido del actor" v-model="apellido">
                         </div>
                         <div class="form-group">
                             <label>Seudonimo</label>
-                            <input type="text" class="form-control" placeholder="Ingresa el seudonimo del actor" v-model="seudonimo">
+                            <input type="text" class="form-control form-control-sm" placeholder="Ingresa el seudonimo del actor" v-model="seudonimo">
                         </div>  
-                        <h5 class="modal-title">Edad Legal</h5>
-                        <div class="form-check">
+                        <h6 class="modal-title">Edad Legal</h6>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios1" v-model="edadLegal" v-bind:value="a">
                             <label class="form-check-label" for="exampleRadios1">
                                 Menor de edad
                             </label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios2" v-model="edadLegal" v-bind:value="b">
                             <label class="form-check-label" for="exampleRadios2">
                                 Mayor de edad
                             </label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios3" v-model="edadLegal" v-bind:value="c">
                             <label class="form-check-label" for="exampleRadios3">
                                 Emancipado
                             </label>
                         </div>
                         <div id="forma" style="display:none">
+                            <hr>
                             <div class="form-group" >
                                 <h5 class="modal-title">Representante Legal</h5>
                                 <label>Nombre</label>
-                                <input type="text" class="form-control" placeholder="Ingresa el nombre del representante legal" v-model="nombreRepLegal">
+                                <input type="text" class="form-control form-control-sm" placeholder="Ingresa el nombre del representante legal" v-model="nombreRepLegal">
                             </div>  
                             <div class="form-group">
                                 <label>Apellido</label>
-                                <input type="text" class="form-control" placeholder="Ingresa el apellido del representante legal" v-model="apellidoRepLegal">
+                                <input type="text" class="form-control form-control-sm" placeholder="Ingresa el apellido del representante legal" v-model="apellidoRepLegal">
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="calidad" id="repLegal1" v-model="calidadRepLegal" v-bind:value="d">
                                 <label class="form-check-label" for="repLegal1">
                                     Padre
                                 </label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="calidad" id="repLegal2" v-model="calidadRepLegal" v-bind:value="e">
                                 <label class="form-check-label" for="repLegal2">
                                     Madre
                                 </label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="calidad" id="repLegal3" v-model="calidadRepLegal" v-bind:value="f">
                                 <label class="form-check-label" for="repLegal3">
                                     Tutor
@@ -114,7 +115,6 @@ export default {
             } else {
                 x.style.display = "none";
             }
-            //console.log(this.edadLegal);
         },
         saveActor: function() {
             let currentRoute = window.location.pathname
@@ -130,7 +130,8 @@ export default {
             }        
             else {
                 this.saveActor2(0,currentRoute)
-            }     
+            }
+              
         },
         saveActor2(dato,currentRoute) {
             console.log("data: "+dato)
@@ -142,18 +143,20 @@ export default {
                 replegal_id: dato
             })
             .then(function(res) {
+                $('#addActorHumano').modal('hide');
                 console.log(res)
-                $('#addActorHumano').modal('hide')   
+                //$('#addActorHumano').modal('hide')   
                 EventBus.$emit('humanActor-added', res.data.humanActor)
                 console.log(res.data.humanActor)
-                $('#addActorHumano').on('hidden.bs.modal', function () {
-                    $(this).find('form').trigger('reset');
-                })
+                // $('#addActorHumano').on('hidden.bs.modal', function () {
+                //     $(this).find('form').trigger('reset');
+                // })
             })
             .catch(function(err) {
                     console.log(err.res)
                     console.log('saludare')
             }) 
+            this.clearValues();
         },
         saveRepLegal(currentRoute) {
             return axios.post(currentRoute+'/representantelegal',{
@@ -172,6 +175,25 @@ export default {
                         console.log(err.res)
                         console.log('saludare1')
                 })
+        },
+        clearValues() {
+            this.nombre="";
+            this.apellido="";
+            this.seudonimo="";
+            this.edadLegal="";
+            this.nombreRepLegal="";
+            this.apellidoRepLegal="";
+            var x = document.getElementById("forma");
+            if (x.style.display === "none") {
+                //x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            //$('#addActorHumano').modal('hide');
+            $('#addActorHumano').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+
         }
         
     }

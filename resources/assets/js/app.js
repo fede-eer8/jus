@@ -20,6 +20,8 @@ Vue.component('edit-human-actor', require('./components/humanActors/editHumanAct
 Vue.component('add-ah-button', require('./components/humanActors/modal-button-add-HA.vue'));
 Vue.component('edit-ah-button', require('./components/humanActors/modal-button-edit-HA.vue'));
 Vue.component('list-human-actor', require('./components/humanActors/listHumanActor.vue'));
+Vue.component('view-human-actor', require('./components/humanActors/viewHumanActor.vue'));
+Vue.component('list2-human-actor', require('./components/humanActors/listHumanActor2.vue'));
 
 const app = new Vue({
     el: '#app'

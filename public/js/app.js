@@ -511,6 +511,16 @@ module.exports = g;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+window.Vue = __webpack_require__(13);
+var bus = new Vue();
+
+/* harmony default export */ __webpack_exports__["a"] = (bus);
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -612,16 +622,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-window.Vue = __webpack_require__(13);
-var bus = new Vue();
-
-/* harmony default export */ __webpack_exports__["a"] = (bus);
 
 /***/ }),
 /* 5 */
@@ -14619,7 +14619,7 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(66);
+module.exports = __webpack_require__(69);
 
 
 /***/ }),
@@ -14648,6 +14648,8 @@ Vue.component('edit-human-actor', __webpack_require__(49));
 Vue.component('add-ah-button', __webpack_require__(52));
 Vue.component('edit-ah-button', __webpack_require__(58));
 Vue.component('list-human-actor', __webpack_require__(63));
+Vue.component('view-human-actor', __webpack_require__(66));
+Vue.component('list2-human-actor', __webpack_require__(73));
 
 var app = new Vue({
   el: '#app'
@@ -36405,7 +36407,7 @@ module.exports = __webpack_require__(23);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
 var Axios = __webpack_require__(25);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -36478,7 +36480,7 @@ module.exports = function isBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(33);
 var dispatchRequest = __webpack_require__(34);
@@ -36974,7 +36976,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(35);
 var isCancel = __webpack_require__(11);
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var isAbsoluteURL = __webpack_require__(36);
 var combineURLs = __webpack_require__(37);
 
@@ -49758,7 +49760,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(3);
+//
 //
 //
 //
@@ -49876,7 +49879,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 x.style.display = "none";
             }
-            //console.log(this.edadLegal);
         },
 
         saveActor: function saveActor() {
@@ -49904,17 +49906,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 edadLegal: this.edadLegal,
                 replegal_id: dato
             }).then(function (res) {
-                console.log(res);
                 $('#addActorHumano').modal('hide');
+                console.log(res);
+                //$('#addActorHumano').modal('hide')   
                 __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* default */].$emit('humanActor-added', res.data.humanActor);
                 console.log(res.data.humanActor);
-                $('#addActorHumano').on('hidden.bs.modal', function () {
-                    $(this).find('form').trigger('reset');
-                });
+                // $('#addActorHumano').on('hidden.bs.modal', function () {
+                //     $(this).find('form').trigger('reset');
+                // })
             }).catch(function (err) {
                 console.log(err.res);
                 console.log('saludare');
             });
+            this.clearValues();
         },
         saveRepLegal: function saveRepLegal(currentRoute) {
             var _this2 = this;
@@ -49933,6 +49937,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(err.res);
                 console.log('saludare1');
             });
+        },
+        clearValues: function clearValues() {
+            this.nombre = "";
+            this.apellido = "";
+            this.seudonimo = "";
+            this.edadLegal = "";
+            this.nombreRepLegal = "";
+            this.apellidoRepLegal = "";
+            var x = document.getElementById("forma");
+            if (x.style.display === "none") {
+                //x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            //$('#addActorHumano').modal('hide');
+            $('#addActorHumano').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
         }
     }
 
@@ -49981,7 +50003,7 @@ var render = function() {
                         expression: "nombre"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control form-control-sm",
                     attrs: {
                       id: "nombre",
                       type: "text",
@@ -50011,7 +50033,7 @@ var render = function() {
                         expression: "apellido"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control form-control-sm",
                     attrs: {
                       type: "text",
                       placeholder: "Ingresa el apellido del actor"
@@ -50040,7 +50062,7 @@ var render = function() {
                         expression: "seudonimo"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control form-control-sm",
                     attrs: {
                       type: "text",
                       placeholder: "Ingresa el seudonimo del actor"
@@ -50057,11 +50079,11 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("h5", { staticClass: "modal-title" }, [
+                _c("h6", { staticClass: "modal-title" }, [
                   _vm._v("Edad Legal")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
                       {
@@ -50107,7 +50129,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
                       {
@@ -50153,7 +50175,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
                       {
@@ -50203,6 +50225,8 @@ var render = function() {
                   "div",
                   { staticStyle: { display: "none" }, attrs: { id: "forma" } },
                   [
+                    _c("hr"),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("h5", { staticClass: "modal-title" }, [
                         _vm._v("Representante Legal")
@@ -50219,7 +50243,7 @@ var render = function() {
                             expression: "nombreRepLegal"
                           }
                         ],
-                        staticClass: "form-control",
+                        staticClass: "form-control form-control-sm",
                         attrs: {
                           type: "text",
                           placeholder:
@@ -50249,7 +50273,7 @@ var render = function() {
                             expression: "apellidoRepLegal"
                           }
                         ],
-                        staticClass: "form-control",
+                        staticClass: "form-control form-control-sm",
                         attrs: {
                           type: "text",
                           placeholder:
@@ -50267,7 +50291,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check form-check-inline" }, [
                       _c("input", {
                         directives: [
                           {
@@ -50308,7 +50332,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check form-check-inline" }, [
                       _c("input", {
                         directives: [
                           {
@@ -50349,7 +50373,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check form-check-inline" }, [
                       _c("input", {
                         directives: [
                           {
@@ -50509,7 +50533,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(3);
 //
 //
 //
@@ -51133,7 +51157,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(3);
+//
 //
 //
 //
@@ -51189,6 +51214,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    viewHumanActor: function viewHumanActor(humanActor, index) {
+      __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* default */].$emit('view-humanActor', humanActor);
+    },
     editHumanActor: function editHumanActor(humanActor, index) {
       this.id = index;
       $('#editHumanActor').modal();
@@ -51209,6 +51237,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   },
+
   mounted: function mounted() {
     var _this3 = this;
 
@@ -51254,7 +51283,20 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-outline-primary",
+                  staticClass: "btn btn-info btn-sm",
+                  on: {
+                    click: function($event) {
+                      return _vm.viewHumanActor(humanActor, index)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-eye", staticStyle: {} })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning btn-sm",
                   on: {
                     click: function($event) {
                       return _vm.editHumanActor(humanActor, index)
@@ -51267,14 +51309,19 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-outline-danger",
+                  staticClass: "btn btn-danger btn-sm",
                   on: {
                     click: function($event) {
                       return _vm.deleteHumanActor(humanActor, index)
                     }
                   }
                 },
-                [_c("i", { staticClass: "fa fa-trash" })]
+                [
+                  _c("i", {
+                    staticClass: "fa fa-trash",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
               )
             ])
           ])
@@ -51315,9 +51362,912 @@ if (false) {
 
 /***/ }),
 /* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/humanActors/viewHumanActor.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1ab2b3f0", Component.options)
+  } else {
+    hotAPI.reload("data-v-1ab2b3f0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            nombre: null,
+            apellido: null,
+            seudonimo: null,
+            edad: null,
+            nombreRepLegal: null,
+            apellidoRepLegal: null,
+            condicionRepLegal: null,
+            loading: true,
+            id: null,
+            repLegal: null
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* default */].$on('view-humanActor', function (data) {
+            if (data.replegal_id != 0) {
+                var currentRoute = window.location.pathname;
+                axios.get(currentRoute + '/representantelegal/' + data.replegal_id).then(function (res) {
+                    console.log("hola:" + res.data.representanteLegal.nombre);
+                    _this.nombreRepLegal = res.data.representanteLegal.nombre;
+                    _this.apellidoRepLegal = res.data.representanteLegal.apellido;
+                    _this.condicionRepLegal = res.data.representanteLegal.calidad;
+                    _this.loading = false;
+                });
+                var y = document.getElementById("tablaRepLegal");
+                if (y.style.display === "none") {
+                    y.style.display = "block";
+                } else {
+                    //x.style.display = "none";
+                }
+            } else {
+                var y = document.getElementById("tablaRepLegal");
+                if (y.style.display === "none") {
+                    //x.style.display = "block";
+                } else {
+                    y.style.display = "none";
+                }
+            }
+
+            console.log('Component mounted.');
+            _this.nombre = data.nombre;
+            _this.apellido = data.apellido;
+            _this.seudonimo = data.seudonimo;
+            _this.edad = data.edad;
+
+            var x = document.getElementById("viewHumanActor");
+            //var optionText = event.target.value;
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                //x.style.display = "none";
+            }
+        });
+    },
+
+    methods: {}
+
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticStyle: { display: "none" }, attrs: { id: "viewHumanActor" } },
+    [
+      _c("h4", { staticClass: "text-center font-weight-bold" }, [
+        _vm._v("Actor ")
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table table-striped table-sm" }, [
+        _c("tbody", [
+          _c("tr", [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(_vm.nombre))])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(_vm.apellido))])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(_vm.seudonimo))])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(_vm.edad))])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { display: "none" }, attrs: { id: "tablaRepLegal" } },
+        [
+          _c("h5", { staticClass: "text-center font-weight-bold" }, [
+            _vm._v("Representante Legal")
+          ]),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-striped table-sm" }, [
+            _c("tbody", [
+              _c("tr", [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.nombreRepLegal))])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.apellidoRepLegal))])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _vm._m(6),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(_vm.condicionRepLegal))])
+              ])
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Nombre")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Apellido")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Seudonimo")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Condición")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Nombre")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Apellido")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { scope: "col" } }, [
+      _c("strong", [_vm._v("Calidad")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1ab2b3f0", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(74)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(76)
+/* template */
+var __vue_template__ = __webpack_require__(77)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1e327d41"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/humanActors/listHumanActor2.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1e327d41", Component.options)
+  } else {
+    hotAPI.reload("data-v-1e327d41", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(75);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(15)("4913273d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e327d41\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./listHumanActor2.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e327d41\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./listHumanActor2.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.product-item[data-v-1e327d41]{\n    width: 300px;\n    float: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['propsSlug'],
+    data: function data() {
+        return {
+            humanActors: [],
+            humanActor: {
+                id: '',
+                nombre: '',
+                apellido: '',
+                seudonimo: '',
+                edad: '',
+                replegal_id: ''
+            },
+            add: true,
+            edit: false,
+            a: "menor de edad",
+            b: "mayor de edad",
+            c: "emancipado"
+        };
+    },
+    created: function created() {
+        this.viewHumanActor();
+        console.log(this.propsSlug);
+    },
+
+    methods: {
+        //?foo=${encodeURIComponent(data.foo)}&bar=${encodeURICom
+        viewHumanActor: function viewHumanActor() {
+            var _this = this;
+
+            var currentRoute = window.location.pathname;
+            console.log(currentRoute);
+            fetch(currentRoute + '/actorhumano').then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.humanActors = res.data;
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        },
+        addHumanActor: function addHumanActor() {
+            var _this2 = this;
+
+            fetch('api/actorhumano', {
+                method: 'post',
+                body: JSON.stringify(this.humanActor),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                alert('Actor Humano Añadido');
+                _this2.viewHumanActor();
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        },
+        editHumanActor: function editHumanActor(human) {
+            this.add = false;
+            this.edit = true;
+            this.humanActor.id = human.id;
+            this.humanActor.nombre = human.nombre, this.humanActor.apellido = human.apellido, this.humanActor.seudonimo = human.seudonimo, this.humanActor.edad = human.edad, this.humanActor.replegal_id = human.replegal_id;
+        },
+        updateHumanActor: function updateHumanActor(id) {
+            var _this3 = this;
+
+            fetch('api/actorhumano', {
+                method: 'put',
+                body: JSON.stringify(this.humanActor),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                alert('Actor Humano Actualizado');
+                _this3.add = true;
+                _this3.edit = false;
+                _this3.viewHumanActor();
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        },
+        delteHumanActor: function delteHumanActor($id) {
+            var _this4 = this;
+
+            fetch('api/actorhumano/' + $id, {
+                method: 'delete'
+            }).then(function (res) {
+                return res.json();
+            }).then(function (data) {
+                alert('Actor Humano Borrado');
+                _this4.viewHumanActor();
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-8" },
+      _vm._l(_vm.humanActors, function(humanActor) {
+        return _c(
+          "div",
+          {
+            key: humanActor.id,
+            staticClass: "card card-body mb-2 mr-2 product-item"
+          },
+          [
+            _c("h4", [_vm._v(_vm._s(humanActor.nombre))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(humanActor.apellido))]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _vm._v("Seudonimo " + _vm._s(humanActor.seudonimo))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 text-right" }, [
+                _vm._v("Condición " + _vm._s(humanActor.edad))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-right mt-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning",
+                  on: {
+                    click: function($event) {
+                      return _vm.editHumanActor(humanActor)
+                    }
+                  }
+                },
+                [_vm._v("Editar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteHumanActor(humanActor)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-4" }, [
+      _c("form", [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Nombre")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.nombre,
+                expression: "humanActor.nombre"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.humanActor.nombre },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.humanActor, "nombre", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Apellido")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.apellido,
+                expression: "humanActor.apellido"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.humanActor.apellido },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.humanActor, "apellido", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", [_vm._v("Seudonimo")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.seudonimo,
+                expression: "humanActor.seudonimo"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.humanActor.seudonimo },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.humanActor, "seudonimo", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "modal-title" }, [_vm._v("Edad Legal")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check form-check-inline" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.edad,
+                expression: "humanActor.edad"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: {
+              type: "radio",
+              name: "exampleRadios",
+              id: "exampleRadios1"
+            },
+            domProps: {
+              value: _vm.a,
+              checked: _vm._q(_vm.humanActor.edad, _vm.a)
+            },
+            on: {
+              change: [
+                function($event) {
+                  return _vm.$set(_vm.humanActor, "edad", _vm.a)
+                },
+                function($event) {
+                  return _vm.onChange()
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "form-check-label",
+              attrs: { for: "exampleRadios1" }
+            },
+            [_vm._v("\n                    Menor de edad\n                ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check form-check-inline" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.edad,
+                expression: "humanActor.edad"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: {
+              type: "radio",
+              name: "exampleRadios",
+              id: "exampleRadios2"
+            },
+            domProps: {
+              value: _vm.b,
+              checked: _vm._q(_vm.humanActor.edad, _vm.b)
+            },
+            on: {
+              change: [
+                function($event) {
+                  return _vm.$set(_vm.humanActor, "edad", _vm.b)
+                },
+                function($event) {
+                  return _vm.onChange()
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "form-check-label",
+              attrs: { for: "exampleRadios2" }
+            },
+            [_vm._v("\n                    Mayor de edad\n                ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check form-check-inline" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.humanActor.edad,
+                expression: "humanActor.edad"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: {
+              type: "radio",
+              name: "exampleRadios",
+              id: "exampleRadios3"
+            },
+            domProps: {
+              value: _vm.c,
+              checked: _vm._q(_vm.humanActor.edad, _vm.c)
+            },
+            on: {
+              change: [
+                function($event) {
+                  return _vm.$set(_vm.humanActor, "edad", _vm.c)
+                },
+                function($event) {
+                  return _vm.onChange()
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "form-check-label",
+              attrs: { for: "exampleRadios3" }
+            },
+            [_vm._v("\n                    Emancipado\n                ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm.add
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addHumanActor()
+                  }
+                }
+              },
+              [_vm._v("Añadir Actor Humano")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.edit
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-warning",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.updateHumanActor(_vm.humanActor.id)
+                  }
+                }
+              },
+              [_vm._v("Editar Actor Humano")]
+            )
+          : _vm._e()
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1e327d41", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

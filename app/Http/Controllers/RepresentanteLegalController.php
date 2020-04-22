@@ -8,6 +8,21 @@ use LegalIS\ExpedienteCivil;
 
 class RepresentanteLegalController extends Controller
 {
+    public function show(ExpedienteCivil $expedientecivil, Request $request, $id)
+    {
+        if($request->ajax() && $id != 0) {
+            $representantelegal = RepresentanteLegal::where('id', $id)->first();
+            return response()->json([
+                // "trainer" => $trainer,
+                "message" => "Representante ubicado correctamente.",
+                //"humanActor" => $actorhumano,
+                "representanteLegal" => $representantelegal,
+                "id" => $representantelegal->id
+    
+            ], 200);
+        }    
+    }
+
     public function store(ExpedienteCivil $expedientecivil, Request $request)
     {
         // $expCivil_actHumano = ExpedienteCivil::where('name','user')->first();

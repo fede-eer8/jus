@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use LegalIS\ActorHumano;
 use LegalIS\ExpedienteCivil;
 use LegalIS\RepresentanteLegal;
+use LegalIS\Http\Resources\ActorHumano as ActorHumanoResource;
 
 class ActorHumanoController extends Controller
 {
@@ -16,10 +17,14 @@ class ActorHumanoController extends Controller
      */
     public function index(ExpedienteCivil $expedientecivil, Request $request)
     {
-        if($request->ajax()) {
+        if($request->ajax()) { 
             return response()->json($expedientecivil->humanActors, 200);
         }
-        return view('actorhumano.index');
+        // return view('actorhumano.index');
+        //$expedientecivil = ExpedienteCivil::where('slug', $slug)->first();
+        $actorhumano = $expedientecivil->humanActors()->orderBy('created_at', 'desc')->paginate(10);
+        return ActorHumanoResource::collection($actorhumano);
+
     }
 
     /**
@@ -81,7 +86,8 @@ class ActorHumanoController extends Controller
      */
     public function show($id)
     {
-        //
+        $actorhumano = ActorHumano::find($id);
+        return new ActorHumanoResource($actorhumano);
     }
 
     /**
@@ -130,6 +136,7 @@ class ActorHumanoController extends Controller
     public function destroy(ExpedienteCivil $expedientecivil, $id)
     {
             $actorhumano = ActorHumano::where('id',$id)->first();
+            $actorhumano->representanteLegal()->dissociate();
             $actorhumano->expediente_civils()->detach($expedientecivil);
             ActorHumano::destroy($id);
             //return 'deleted';

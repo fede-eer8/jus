@@ -29,3 +29,8 @@ Route::post('expedientecivil/{expedientecivil}/actorhumanoupdate','ActorHumanoCo
 Route::delete('expedientecivil/{expedientecivil}/actorhumanodelete/{id}', 'ActorHumanoController@destroy');
 
 Route::post('expedientecivil/{expedientecivil}/representantelegal','RepresentanteLegalController@store');
+Route::get('expedientecivil/{expedientecivil}/representantelegal/{id}','RepresentanteLegalController@show');
+
+Route::get('/', function() {
+    return view('actorhumano.actorhumano');
+});

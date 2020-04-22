@@ -43,6 +43,9 @@
       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Actores</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" id="actorHumano-tab" data-toggle="tab" href="#ActorHumano" role="tab" aria-controls="ActorHumano" aria-selected="false">Actores</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
     </li>
   </ul>
@@ -68,18 +71,26 @@
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <add-ah-button></add-ah-button>
+            <add-ah-button></add-ah-button>
+            <hr>
+            <div class="row">     
+                <div class="col-md-6">               
                     <add-human-actor></add-human-actor>
                     <list-human-actor></list-human-actor>
                     <edit-human-actor></edit-human-actor>
                 </div>
+                <div class="col-md-6" >
+                    <view-human-actor></view-human-actor>
+                </div>
             </div>
         </div>
         
+    </div>
+    <div class="tab-pane fade" id="ActorHumano" role="tabpanel" aria-labelledby="actorHumano-tab">
+        <div class="container">
+            <list2-human-actor props-slug="{{ $expedientecivil->slug }}"></list2-human-actor>
+        </div>
         
-
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
   </div>

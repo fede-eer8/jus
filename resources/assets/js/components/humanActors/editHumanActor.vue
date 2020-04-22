@@ -62,10 +62,10 @@ export default {
                 seudonimo: this.seudonimo
             })
             .then(function(res) {
-                    console.log(res)
-                    $('#editHumanActor').modal('hide')
-                    EventBus.$emit('humanActor-updated', res.data.humanActor)
-                    console.log(res.data.humanActor)
+                console.log(res)
+                $('#editHumanActor').modal('hide')
+                EventBus.$emit('humanActor-updated', res.data.humanActor)
+                console.log(res.data.humanActor)
             })
             .catch(function(err) {
                     console.log(err.res)
