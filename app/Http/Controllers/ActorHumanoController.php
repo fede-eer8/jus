@@ -17,13 +17,13 @@ class ActorHumanoController extends Controller
      */
     public function index(ExpedienteCivil $expedientecivil, Request $request)
     {
-        if($request->ajax()) { 
+        if($request->ajax()) { //ExpedienteCivil $expedientecivil, Request $request
             return response()->json($expedientecivil->humanActors, 200);
         }
         // return view('actorhumano.index');
         //$expedientecivil = ExpedienteCivil::where('slug', $slug)->first();
-        $actorhumano = $expedientecivil->humanActors()->orderBy('created_at', 'desc')->paginate(10);
-        return ActorHumanoResource::collection($actorhumano);
+        //$actorhumano = $expedientecivil->humanActors()->orderBy('created_at', 'desc')->paginate(10);
+        //return ActorHumanoResource::collection(ActorHumano::orderBy('created_at', 'desc')->paginate(10));
 
     }
 
@@ -48,7 +48,11 @@ class ActorHumanoController extends Controller
         // $expCivil_actHumano = ExpedienteCivil::where('name','user')->first();
         // $role_admin = Role::where('name','admin')->first();
 
-        if ($request->ajax()) {
+        // $actorhumano = ActorHumano::create($request->all());
+        // return new ActorHumanoResource($actorhumano);
+
+        //codigo al 21-04        ExpedienteCivil $expedientecivil, Request $request
+        if ($request->ajax()) {  
             if($request->replegal_id != 0) {
                 $representantelegal = RepresentanteLegal::where('id', $request->replegal_id)->first();
             }
@@ -86,8 +90,8 @@ class ActorHumanoController extends Controller
      */
     public function show($id)
     {
-        $actorhumano = ActorHumano::find($id);
-        return new ActorHumanoResource($actorhumano);
+        // $actorhumano = ActorHumano::find($id);
+        // return new ActorHumanoResource($actorhumano);
     }
 
     /**
@@ -108,9 +112,16 @@ class ActorHumanoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        // $actorhumano = ActorHumano::find($id);
+        // $actorhumano->update($request->all());
+        // return new ActorHumanoResource($actorhumano);
+
+
         //$actorhumano = where('id',5);
+
+        //codigo al 21-04   Request $request
         if ($request->ajax()) {
             $id = $request->input("id");
             $actorhumano = ActorHumano::where('id',$id)->first();
@@ -135,6 +146,10 @@ class ActorHumanoController extends Controller
      */
     public function destroy(ExpedienteCivil $expedientecivil, $id)
     {
+        // $actorhumano = ActorHumano::find($id);
+        // $actorhumano->delete();
+        // return new ActorHumanoResource($actorhumano);  
+            // codigo al 21-04 ExpedienteCivil $expedientecivil, $id
             $actorhumano = ActorHumano::where('id',$id)->first();
             $actorhumano->representanteLegal()->dissociate();
             $actorhumano->expediente_civils()->detach($expedientecivil);
@@ -148,20 +163,20 @@ class ActorHumanoController extends Controller
             ], 200);
         
     }
-    public function delete(ExpedienteCivil $expedientecivil, $id)
-    {
-            $actorhumano = ActorHumano::where('id',$id)->first();
-            $actorhumano->expediente_civils()->detach($id);
-            ActorHumano::destroy($id);
-            //return 'deleted';
+    // public function delete(ExpedienteCivil $expedientecivil, $id)
+    // {
+    //         $actorhumano = ActorHumano::where('id',$id)->first();
+    //         $actorhumano->expediente_civils()->detach($id);
+    //         ActorHumano::destroy($id);
+    //         //return 'deleted';
 
-            return response()->json([
-                // "trainer" => $trainer,
-                "message" => "Actor modificado correctamente.",
-                "humanActor" => $actorhumano
-            ], 200);
+    //         return response()->json([
+    //             // "trainer" => $trainer,
+    //             "message" => "Actor modificado correctamente.",
+    //             "humanActor" => $actorhumano
+    //         ], 200);
 
             
         
-    }
+    // }
 }

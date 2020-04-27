@@ -5,6 +5,8 @@ namespace LegalIS\Http\Controllers;
 use Illuminate\Http\Request;
 use LegalIS\ExpedienteCivil;
 use LegalIS\Categoria;
+use Illuminate\Support\Facades\Auth;
+//use LegalIS\User;
 
 class ExpedienteCivilController extends Controller
 {
@@ -13,11 +15,18 @@ class ExpedienteCivilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $expedienteCivils = ExpedienteCivil::all();
-        //$categorias = Categoria::all();
-        return view('expedientecivil.index', compact('expedienteCivils'));
+        if(Auth::check()){
+            $request->user()->authorizeRoles('admin');
+            $expedienteCivils = ExpedienteCivil::all();
+            //$categorias = Categoria::all();
+            return view('expedientecivil.index', compact('expedienteCivils'));
+        }
+        else {
+            return view('errors.401');
+        }
+        
     }
 
     /**
@@ -63,10 +72,14 @@ class ExpedienteCivilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ExpedienteCivil $expedientecivil)
+    public function show(ExpedienteCivil $expedientecivil, Request $request)
     {
         // $expedienteCivil = ExpedienteCivil::where('slug', '=', $slug)->firstOrFail();
-        return view('expedientecivil.show', compact('expedientecivil'));
+        if(Auth::check()){
+            $request->user()->authorizeRoles('admin');
+            return view('expedientecivil.show', compact('expedientecivil'));
+        }
+        
     }
 
     /**
@@ -103,7 +116,7 @@ class ExpedienteCivilController extends Controller
         //$actorhumano = ActorHumano::where('id',$id)->first();
             //$expedienteCivil->human_actors()->detach($id);
             $expedientecivil->delete();
-            return 'deleted';
+            return redirect()->route('expedientecivil.index');
 
             // return response()->json([
             //     // "trainer" => $trainer,

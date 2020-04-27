@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h4 class="text-center font-weight-bold">Actores Humanos</h4>
+    <h4 v-if="add" class="text-center font-weight-bold">Actores Humanos</h4>
     <table class="table table-striped table-sm">
       <thead>
-      <tr>
+      <tr v-if="add">
         <th scope="col">Nombre</th>
         <th scope="col">Apellido</th>
         <th scope="col">Seudonimo</th>
@@ -34,12 +34,14 @@
       return {
         humanActors: [],
         loading: true,
-        id: null
+        id: null,
+        add: true
       }
     },
     created() {
       EventBus.$on('humanActor-added', data => {
         this.humanActors.push(data)
+        this.review();
       })
       EventBus.$on('humanActor-updated', data => {
         console.log("el id es: ",this.id)
@@ -49,10 +51,12 @@
         //this.humanActors.push(data)
         //this.humanActors.sort()
       })
+      this.review();
     },
     methods: {
       viewHumanActor(humanActor,index) {
         EventBus.$emit('view-humanActor', humanActor)
+        this.review();
       },
       editHumanActor(humanActor,index) {
         this.id = index
@@ -60,6 +64,7 @@
         EventBus.$emit('edit-humanActor', humanActor)
       },
       deleteHumanActor(humanActor,index) {
+        EventBus.$emit('delete-humanActor')
         let currentRoute = window.location.pathname
         console.log("El id es: ",humanActor.id)
         console.log(currentRoute)
@@ -67,25 +72,36 @@
         .delete(currentRoute+'/actorhumanodelete/'+humanActor.id)
         .then((res) => {
           console.log(res)
-          this.humanActors.splice(index,1)       
+          this.humanActors.splice(index,1)    
+          this.review();   
         })
         .catch(err => {
           console.log(err)
           console.log("hubo error")
         })
-      }
+        this.review();
       },
-    
-      mounted() {
-      let currentRoute = window.location.pathname
-      axios
-      .get(currentRoute+'/actorhumano')
-      .then((res) => {
-        console.log(res)
-        this.humanActors = res.data
-        this.loading = false
-      })
-      console.log('Component mounted.')
-      }
+      review() {
+        if(this.humanActors.length == 0){
+          this.add = false;
+        }
+        else {
+          this.add = true;
+        }
+      },
+    },    
+    mounted() {
+    let currentRoute = window.location.pathname
+    axios
+    .get(currentRoute+'/actorhumano')
+    .then((res) => {
+      //console.log(res)
+      this.humanActors = res.data
+      this.loading = false
+      this.review();
+      console.log("hay :"+this.humanActors.length)
+    })
+    console.log('Component mounted.')
+    }
   }
 </script> 

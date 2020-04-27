@@ -1,6 +1,6 @@
 <template>
     
-    <div id="viewHumanActor" style="display:none">
+    <div v-if="human" id="viewHumanActor">
         <h4 class="text-center font-weight-bold">Actor </h4>
         <table class="table table-striped table-sm">
             <tbody>
@@ -22,7 +22,7 @@
                 </tr>
             </tbody>
         </table>
-        <div id="tablaRepLegal" style="display:none">
+        <div v-if="rep" id="tablaRepLegal">
             <h5 class="text-center font-weight-bold">Representante Legal</h5>
             <table class="table table-striped table-sm">
             <!-- <thead>
@@ -66,11 +66,18 @@ export default {
             condicionRepLegal: null,
             loading: true,
             id: null,
-            repLegal: null
+            repLegal: null,
+            human: false,
+            rep: false
         }
     },
     created() {
+        EventBus.$on('delete-humanActor', data => {
+            this.human = false;
+            this.rep = false;
+        })
         EventBus.$on('view-humanActor', data => {
+            this.human = true;
             if(data.replegal_id != 0) {
                 let currentRoute = window.location.pathname
                 axios
@@ -82,19 +89,23 @@ export default {
                     this.condicionRepLegal = res.data.representanteLegal.calidad;
                     this.loading = false;
                 })
-                var y = document.getElementById("tablaRepLegal");
-                if (y.style.display === "none") {
-                    y.style.display = "block";
-                } else {
-                //x.style.display = "none";
-                }
-            }else {
-                var y = document.getElementById("tablaRepLegal");
-                if (y.style.display === "none") {
-                    //x.style.display = "block";
-                } else {
-                    y.style.display = "none";
-                }
+                this.rep = true;
+            //     var y = document.getElementById("tablaRepLegal");
+            //     if (y.style.display === "none") {
+            //         y.style.display = "block";
+            //     } else {
+            //     //x.style.display = "none";
+            //     }
+            // }else {
+            //     var y = document.getElementById("tablaRepLegal");
+            //     if (y.style.display === "none") {
+            //         //x.style.display = "block";
+            //     } else {
+            //         y.style.display = "none";
+            //     }
+            }
+            else {
+                this.rep = false;
             }
             
             console.log('Component mounted.')
@@ -103,13 +114,13 @@ export default {
             this.seudonimo = data.seudonimo;
             this.edad = data.edad;
                 
-            var x = document.getElementById("viewHumanActor");
+            // var x = document.getElementById("viewHumanActor");
             //var optionText = event.target.value;
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                //x.style.display = "none";
-            }
+            // if (x.style.display === "none") {
+            //     x.style.display = "block";
+            // } else {
+            //     //x.style.display = "none";
+            // }
       })
       
       

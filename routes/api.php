@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('getCategorias', 'APIController@getCategorias');
 Route::get('getMaterias', 'APIController@getMaterias');
 
-Route::resource('actorhumano', 'ActorHumanoController');
+//Route::resource('actor_humanos', 'ActorHumanoController');
 
-Route::get('api/actorhumano/{expedientecivil}','ActorHumanoController@index');
+//Route::get('api/actorhumano/{expedientecivil}','ActorHumanoController@index');

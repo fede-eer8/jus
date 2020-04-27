@@ -22,8 +22,8 @@ class ActorHumano extends JsonResource
             'seudonimo' => $this->seudonimo,
             'edad' => $this->edad,
             'replegal_id' => $this->replegal_id,
-            // 'created_at' => $this->created_at,
-            // 'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

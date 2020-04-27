@@ -23,7 +23,7 @@ Route::get('dropdownlist/getmaterias/{id}','DataController@getMaterias');
 //Route::get('dropdownlist','DataController@getCategorias');
 Route::get('dropdown/getmaterias/{id}','ExpedienteCivilController@getMaterias');
 
-Route::get('expedientecivil/{expedientecivil}/actorhumano','ActorHumanoController@index');
+ Route::get('expedientecivil/{expedientecivil}/actorhumano','ActorHumanoController@index');
 Route::post('expedientecivil/{expedientecivil}/actorhumano','ActorHumanoController@store');
 Route::post('expedientecivil/{expedientecivil}/actorhumanoupdate','ActorHumanoController@update');
 Route::delete('expedientecivil/{expedientecivil}/actorhumanodelete/{id}', 'ActorHumanoController@destroy');
@@ -31,6 +31,9 @@ Route::delete('expedientecivil/{expedientecivil}/actorhumanodelete/{id}', 'Actor
 Route::post('expedientecivil/{expedientecivil}/representantelegal','RepresentanteLegalController@store');
 Route::get('expedientecivil/{expedientecivil}/representantelegal/{id}','RepresentanteLegalController@show');
 
-Route::get('/', function() {
-    return view('actorhumano.actorhumano');
-});
+// Route::get('/', function() {
+//     return view('actorhumano.actorhumano');
+// });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

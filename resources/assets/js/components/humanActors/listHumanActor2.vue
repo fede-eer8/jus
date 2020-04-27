@@ -30,19 +30,19 @@
                 </div>
                 <h6 class="modal-title">Edad Legal</h6>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios1" v-model="humanActor.edad" v-bind:value="a">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" v-model="humanActor.edad" v-bind:value="a">
                     <label class="form-check-label" for="exampleRadios1">
                         Menor de edad
                     </label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios2" v-model="humanActor.edad" v-bind:value="b">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" v-model="humanActor.edad" v-bind:value="b">
                     <label class="form-check-label" for="exampleRadios2">
                         Mayor de edad
                     </label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" @change="onChange()" id="exampleRadios3" v-model="humanActor.edad" v-bind:value="c">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" v-model="humanActor.edad" v-bind:value="c">
                     <label class="form-check-label" for="exampleRadios3">
                         Emancipado
                     </label>
@@ -76,7 +76,7 @@ export default {
                 apellido: '',
                 seudonimo: '',
                 edad: '',
-                replegal_id: ''
+                replegal_id: 0
             },
             add: true,
             edit: false,
@@ -94,7 +94,7 @@ export default {
         viewHumanActor() {
             let currentRoute = window.location.pathname
             console.log(currentRoute)
-            fetch(currentRoute+'/actorhumano')
+            fetch('api/actor_humanos')
             .then(res => res.json())
             .then(res => {
                 this.humanActors = res.data
@@ -102,7 +102,8 @@ export default {
             .catch(err => console.log(err))
         },
         addHumanActor() {
-            fetch('api/actorhumano', {
+            //let currentRoute = window.location.pathname
+            fetch('api/actor_humanos', {
                 method: 'post',
                 body: JSON.stringify(this.humanActor),
                 headers: {
@@ -110,8 +111,13 @@ export default {
                 }
             })
             .then(res => res.json())
-            .then(res => {
+            .then(data => {
                 alert('Actor Humano Añadido');
+                this.humanActor.nombre = '';
+                this.humanActor.apellido = '';
+                this.humanActor.seudonimo = '';
+                this.humanActor.edad = '';
+                this.humanActor.replegal_id = '';
                 this.viewHumanActor();
             })
             .catch(err => console.log(err))
@@ -135,10 +141,15 @@ export default {
                 }
             })
             .then(res => res.json())
-            .then(res => {
+            .then(data => {
                 alert('Actor Humano Actualizado');
                 this.add = true;
                 this.edit = false;
+                this.humanActor.nombre = '';
+                this.humanActor.apellido = '';
+                this.humanActor.seudonimo = '';
+                this.humanActor.edad = '';
+                this.humanActor.replegal_id = '';
                 this.viewHumanActor();
             })
             .catch(err => console.log(err))
