@@ -62,13 +62,19 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="calidad" id="repLegal2" v-model="calidadRepLegal" v-bind:value="e">
                                 <label class="form-check-label" for="repLegal2">
-                                    Madre
+                                    Apoderado
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="calidad" id="repLegal3" v-model="calidadRepLegal" v-bind:value="f">
                                 <label class="form-check-label" for="repLegal3">
                                     Tutor
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="calidad" id="repLegal4" v-model="calidadRepLegal" v-bind:value="g">
+                                <label class="form-check-label" for="repLegal4">
+                                    Otro
                                 </label>
                             </div>
                         </div>                   
@@ -100,8 +106,9 @@ export default {
             apellidoRepLegal: null,
             calidadRepLegal: null,
             d: "Padre",
-            e: "Madre",
+            e: "Apoderado",
             f: "Tutor",
+            g: "Otro",
             replegal_id: null
         }
     },

@@ -9,42 +9,34 @@
 @endsection
 
 @section('content')
-    {{-- <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Principal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{$expedientecivil->nombre}}</h5>
-            <h1>{{$expedientecivil->slug}}</h1>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Categoria: {{ $expedientecivil->categoria->cat_nombre }}</li>
-            <li class="list-group-item">Materia: {{ $expedientecivil->materia->mat_nombre }}</li>
-            <li class="list-group-item">Iniciado: {{ $expedientecivil->created_at->format('d/m/Y') }}</li>
-        </ul>
-  </div> --}}
+
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+      <a class="nav-link active" id="principal-tab" data-toggle="tab" href="#principal" role="tab" aria-controls="principal" aria-selected="true">Principal</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Actores Humanos</a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actores</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#ActorHumano" id="actorHumano-tab" data-toggle="tab" role="tab" aria-controls="ActorHumano">Actores Humanos</a>
+          <a class="dropdown-item" id="actorIdeal-tab" data-toggle="tab" role="tab" href="#ActorIdeal">Actores Ideales</a>
+          {{-- <a class="dropdown-item" href="#">Something else here</a> --}}
+          {{-- <div class="dropdown-divider"></div> --}}
+          {{-- <a class="dropdown-item" href="#">Separated link</a> --}}
+        </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="actorIdeal-tab" data-toggle="tab" href="#ActorIdeal" role="tab" aria-controls="ActorIdeal" aria-selected="false">Actores Ideales</a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Demandados</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#DemandadoHumano" id="demandadoHumano-tab" data-toggle="tab" role="tab" aria-controls="ActorHumano">Demandados Humanos</a>
+          <a class="dropdown-item" id="demandadoIdeal-tab" data-toggle="tab" role="tab" href="#DemandadoIdeal">Demandados Ideales</a>
+          {{-- <a class="dropdown-item" href="#">Something else here</a> --}}
+          {{-- <div class="dropdown-divider"></div> --}}
+          {{-- <a class="dropdown-item" href="#">Separated link</a> --}}
+        </div>
     </li>
+    {{-- <li class="nav-item">
+      <a class="nav-link" id="actorIdeal-tab" data-toggle="tab" href="#ActorIdeal" role="tab" aria-controls="ActorIdeal">Actores Ideales</a>
+    </li> --}}
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
     </li>
@@ -67,12 +59,12 @@
       </li>
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">  
+    <div class="tab-pane fade show active" id="principal" role="tabpanel" aria-labelledby="principal-tab">  
         <div class="text-center p-2">
             <h5 class="text-center">{{$expedientecivil->nombre}}</h5>
             <h1>{{$expedientecivil->slug}}</h1>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary m-2">Go somewhere</a>
+            {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary m-2">Go somewhere</a> --}}
             
             {{-- {!! Form::open([ 'route' => ['expedientecivil.destroy', $expedientecivil->slug], 'method' => 'DELETE']) !!}
                 {!! Form::submit('Eliminar', ['class' => 'btn btn-danger', 'icon' => 'fa fa-trash', ]) !!}
@@ -83,13 +75,11 @@
                 <li class="list-group-item">Iniciado: <strong>{{ $expedientecivil->created_at->format('d/m/Y')}}</strong></li>
             </ul>
         </div>
-        
-
-        
+           
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane fade" id="ActorHumano" role="tabpanel" aria-labelledby="actorHumano-tab">
         <div class="container">
-            <add-ah-button></add-ah-button>
+            <add-ha-button></add-ha-button>
             <hr>
             <div class="row">     
                 <div class="col-md-6">               
@@ -107,7 +97,45 @@
     <div class="tab-pane fade" id="ActorIdeal" role="tabpanel" aria-labelledby="actorIdeal-tab">
         <div class="container">
             {{-- <list2-human-actor props-slug="{{ $expedientecivil->slug }}"></list2-human-actor> --}}
-            
+            <div class="row">
+                <div class="col-md-6">
+                    <add-ideal-actor></add-ideal-actor>
+                    <list-ideal-actor></list-ideal-actor>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="tab-pane fade" id="DemandadoHumano" role="tabpanel" aria-labelledby="actorHumano-tab">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <add-human-defendant></add-human-defendant>
+                    <list-human-defendant></list-human-defendant>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="tab-pane fade" id="DemandadoIdeal" role="tabpanel" aria-labelledby="demandadoIdeal-tab">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <add-ideal-defendant></add-ideal-defendant>
+                    <list-ideal-defendant></list-ideal-defendant>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
         </div>
         
     </div>
