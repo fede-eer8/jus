@@ -2,11 +2,14 @@
 
 namespace LegalIS;
 use LegalIS\ActorHumano;
+// use Mpociot\Firebase\SyncsWithFirebase;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ActorHumano extends Model
 {
+    // use SyncsWithFirebase;
+    
     protected $fillable = [
         'nombre', 'apellido', 'seudonimo', 'edad' 
     ];

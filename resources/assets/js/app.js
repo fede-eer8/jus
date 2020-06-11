@@ -28,6 +28,8 @@ Vue.component('add-human-defendant', require('./components/humanDefendants/addHu
 Vue.component('list-human-defendant', require('./components/humanDefendants/listHumanDefendant.vue'));
 Vue.component('add-ideal-defendant', require('./components/idealDefendants/addIdealDefendant.vue'));
 Vue.component('list-ideal-defendant', require('./components/idealDefendants/listIdealDefendant.vue'));
+Vue.component('add-decreto', require('./components/decretos/addDecreto.vue'));
+Vue.component('list-decreto', require('./components/decretos/listDecreto.vue'));
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
 

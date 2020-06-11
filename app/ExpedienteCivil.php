@@ -35,6 +35,10 @@ class ExpedienteCivil extends Model
         return $this->belongsTo('LegalIS\Materia', 'mat_id');
     }
 
+    public function decreto() {
+        return $this->hasMany('LegalIS\Decreto','expcivil_id');
+    }
+
     public static function boot()
     {
         parent::boot();

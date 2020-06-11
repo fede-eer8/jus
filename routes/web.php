@@ -46,6 +46,11 @@ Route::post('expedientecivil/{expedientecivil}/demandadoideal','DemandadoIdealCo
 Route::post('expedientecivil/{expedientecivil}/demandadoidealupdate','DemandadoIdealController@update');
 Route::delete('expedientecivil/{expedientecivil}/demandadoidealdelete/{id}', 'DemandadoIdealController@destroy');
 
+Route::get('expedientecivil/{expedientecivil}/decreto','DecretoController@index');
+Route::post('expedientecivil/{expedientecivil}/decreto','DecretoController@store');
+Route::post('expedientecivil/{expedientecivil}/decretoupdate','DecretoController@update');
+Route::delete('expedientecivil/{expedientecivil}/decretodelete/{id}', 'DecretoController@destroy');
+
 // Route::get('/', function() {
 //     return view('actorhumano.actorhumano');
 // });

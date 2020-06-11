@@ -1,0 +1,5 @@
+'api_key' => 'AIzaSyDKt2EOtxeHzNHhrEN3wRFSmdGUH41dJHg', // ESTA LA PODEMOS OBTENER PRESIONANDO Agregar Firebase a tu app web     
+'auth_domain' => 'legalis-11902.firebaseapp.com',  // ESTA LA PODEMOS OBTENER PRESIONANDO Agregar Firebase a tu app web     
+'database_url' => 'https://legalis-11902.firebaseio.com', // ESTA LA PODEMOS OBTENER PRESIONANDO Agregar Firebase a tu app web
+'secret' => 'rQVpgmfMa8RIqsmpavEHG8hkMnEYtiFIVEwkgOe6', // Esta la sacamos dirigiendonos a la seccion Cuentas de Servicio
+'storage_bucket' => 'legalis-11902.appspot.com',  // ESTA LA PODEMOS OBTENER PRESIONANDO Agregar Firebase a tu app web

@@ -37,6 +37,13 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+window.Vue = require('vue');
+
+window.events = new Vue();
+
+window.showNotification = function(message, type = 'alert-primary') {
+    window.events.$emit('showNotification', message, type);
+}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

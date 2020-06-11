@@ -30,7 +30,7 @@
 </template>
 <style scoped>
     .top-space{
-        margin-top: 20px
+        margin-top: 15px
     } 
 </style>
 <script>
