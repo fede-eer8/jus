@@ -1,23 +1,35 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container top-space">
       <div class="row">
         <div class="col-md-4">
-          <button @click="showForm()" type="submit" class="btn btn-primary top-space">Añadir Decreto</button>
+          <button
+            @click="showForm()"
+            type="submit"
+            class="btn btn-primary"
+          >Cargar Documento</button>
         </div>
         <div class="col-md-8">
-          <form v-if="show" @submit.prevent="saveDecreto">
+          <form v-if="show" @submit.prevent="saveDocumento">
             <!-- <div class="form-group">
               <label>Nombre</label>
               <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre del demandado" v-model="nombre">
             </div>-->
+            <label>Tipo de Documento</label>
+            <select v-model="type">
+              <option disabled value="0">Seleccione un tipo</option>
+              <option v-for="data in types" v-bind:value="data.nombre" >{{ data.nombre }}</option>
+            </select>
+            <span>Seleccionado: {{ type }}</span>
+            <!-- <span>Seleccionado: {{ type }}</span> -->
             <div class="form-group">
               <!-- <label>Decreto</label> -->
               <input
                 type="file"
                 ref="file"
+                accept=".docx, .pdf, .doc"
                 class="form-control-md top-space"
-                placeholder="Ingresar CUIT del demandado"
+                placeholder=""
                 @change="onChangeFileUpload()"
               />
             </div>
@@ -26,49 +38,63 @@
               <i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </form>
-        </div>    
+        </div>
       </div>
     </div>
-    <hr>
+    <hr />
   </div>
 </template>
 
 <script>
 import EventBus from "../../event-bus";
+
 export default {
   data() {
     return {
       show: false,
       edit: false,
       //alert: false,
-      file: ""
+      file: "",
+      type: 0,
+      types: [],
       //msj: ''
     };
   },
-  created() {},
+  created() {
+    this.getTipoDocumento();
+  },
 
   methods: {
     showForm() {
       this.show = !this.show;
       //this.alert = false;
     },
-    saveDecreto: function() {
+    getTipoDocumento: function() {
+      axios.get("/api/getTipoDocumento")
+      .then(
+        function(response) {
+          this.types = response.data;
+        }.bind(this)
+      );
+    },
+    saveDocumento: function() {
       let currentRoute = window.location.pathname;
       console.log(currentRoute);
       let formData = new FormData();
       formData.append("file", this.file);
+      formData.append("type", this.type);
 
       if (this.edit) {
         let currentRoute = window.location.pathname;
         console.log(currentRoute);
         axios
-          .post(currentRoute + "/decretoupdate", {
+          .post(currentRoute + "/documentoupdate", {
             id: this.id,
             nombre: this.nombre
           })
           .then(function(res) {
             console.log(res);
-            EventBus.$emit("decreto-updated", res.data.humanDefendant);
+            EventBus.$emit("document-updated", res.data.humanDefendant);
             console.log(res.data.humanDefendant);
           })
           .catch(function(err) {
@@ -77,15 +103,15 @@ export default {
           });
       } else {
         axios
-          .post(currentRoute + "/decreto", formData, {
+          .post(currentRoute + "/documento", formData, {
             headers: {
               "Content-Type": "multipart/form-data"
-            }
+            },
           })
           .then(function(res) {
             console.log(res.data);
-            EventBus.$emit("decreto-added", res.data.decreto);
-            console.log(res.data.decreto);
+            EventBus.$emit("document-added", res.data.documento);
+            console.log(res.data.documento);
           })
           .catch(function(err) {
             console.log(err.res);

@@ -46,10 +46,13 @@ Route::post('expedientecivil/{expedientecivil}/demandadoideal','DemandadoIdealCo
 Route::post('expedientecivil/{expedientecivil}/demandadoidealupdate','DemandadoIdealController@update');
 Route::delete('expedientecivil/{expedientecivil}/demandadoidealdelete/{id}', 'DemandadoIdealController@destroy');
 
-Route::get('expedientecivil/{expedientecivil}/decreto','DecretoController@index');
-Route::post('expedientecivil/{expedientecivil}/decreto','DecretoController@store');
-Route::post('expedientecivil/{expedientecivil}/decretoupdate','DecretoController@update');
-Route::delete('expedientecivil/{expedientecivil}/decretodelete/{id}', 'DecretoController@destroy');
+Route::get('expedientecivil/{expedientecivil}/documento','DocumentoController@index');
+Route::post('expedientecivil/{expedientecivil}/documento','DocumentoController@store');
+Route::post('expedientecivil/{expedientecivil}/documentoupdate','DocumentoController@update');
+Route::delete('expedientecivil/{expedientecivil}/documentodelete/{id}', 'DocumentoController@destroy');
+Route::get('expedientecivil/{expedientecivil}/documento/{id}', 'DocumentoController@show');
+
+Route::get('tipodocumento', 'TipoDocumentoController@index');
 
 // Route::get('/', function() {
 //     return view('actorhumano.actorhumano');

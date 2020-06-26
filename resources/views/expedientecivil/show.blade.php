@@ -38,14 +38,14 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" id="decreto-tab" data-toggle="tab" href="#decreto" role="tab" aria-controls="decreto" aria-selected="false">Decretos</a>
+      <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">Documentos</a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
     </li>
     
-    <li class="nav-item dropdown">
+    <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Acciones</a>
         <div class="dropdown-menu">
           {{-- <a class="dropdown-item" href="#">Action</a> --}}
@@ -61,7 +61,7 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Separated link</a> --}}
         </div>
-    </li>
+    </li> -->
   </ul>
 
   <div class="tab-content" id="myTabContent">
@@ -172,15 +172,15 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="decreto" role="tabpanel" aria-labelledby="decreto-tab">
+    <div class="tab-pane fade" id="documento" role="tabpanel" aria-labelledby="documento-tab">
     <div class="container">
             <div class="row">     
                 <div class="col-md-6">               
-                    <add-decreto></add-decreto>
-                    <list-decreto></list-decreto>
+                    <add-document></add-document>
+                    <list-document></list-document>
                 </div>
                 <div class="col-md-6" >
-                    
+                    <view-document></view-document>
                 </div>
             </div>
         </div>

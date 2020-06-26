@@ -4,15 +4,15 @@ namespace LegalIS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use LegalIS\ExpedienteCivil;
-use LegalIS\Decreto;
+use LegalIS\Documento;
+use LegalIS\TipoDocumento;
 
-
-class DecretoController extends Controller
+class DocumentoController extends Controller
 {
     public function index(ExpedienteCivil $expedientecivil, Request $request)
     {
         if($request->ajax()) {
-            return response()->json($expedientecivil->decreto, 200);
+            return response()->json($expedientecivil->documento, 200);
         }
     }
     
@@ -21,33 +21,37 @@ class DecretoController extends Controller
         // return $request;
         if ($request->ajax()) {  
 
-            $decreto = new Decreto();
+            $documento = new Documento();
             if($request->hasFile($request->file('name'))) {
                 $file = $request->file;
+                $typedoc = TipoDocumento::where('nombre', $request->type)->first();
                 // $name = date('Ymd_His').'_'.$file->getClientOriginalName();
                 $name = time().'_'.$file->getClientOriginalName();
-                $file->move(public_path().'/expcivil/'. $expedientecivil->nombre .'/decretos/', $name);
+                $file->move(public_path().'/storage/expcivil/'. $expedientecivil->nombre .'/'.$typedoc->slug_fd.'/', $name);
             }
-            $decreto->nombre = $name;
-            $decreto->expediente_civils()->associate($expedientecivil)->save();
-            //$decreto->save();
-            //$decreto->expediente_civils()->attach($expedientecivil);  
+            $documento->nombre = $name;
+            $documento->tipo_documento()->associate($typedoc)->expediente_civils()->associate($expedientecivil)->save();
+            
+            //$documento->save();
+            //$documento->expediente_civils()->attach($expedientecivil);  
         }
         return response()->json([
             // "trainer" => $trainer,
-            "message" => "Decreto creado correctamente.",
-            "decreto" => $decreto,
+            "message" => "Documento creado correctamente.",
+            "documento" => $documento,
             //"representanteLegal" => $representantelegal
         ], 200);
     }
 
     public function show(ExpedienteCivil $expedientecivil, Request $request, $id)
     {
-        $filename = Decreto::where('id', $id)->first();
+        $filename = Documento::where('id', $id)->first();
+        $filetype = TipoDocumento::where('id', $filename->tipodoc_id)->first();
         
-        if($request->ajax() && $id != 0) {
-            $file = public_path() . "/expcivil/".$expedientecivil->nombre.'/decretos/'.$filename->nombre;
-
+        if($request->ajax()) {
+            $file = public_path() . "/expcivil/".$expedientecivil->nombre.'/'.$filetype->slug_fd.'/'.$filename->nombre;
+            // $name = substr ( $filename->nombre , 11 );
+            // $file->rename($file, $name);
             $headers = [
                 'Content-Type' => 'application/pdf',
             ];

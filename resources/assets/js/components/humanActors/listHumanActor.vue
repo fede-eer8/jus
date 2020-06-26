@@ -102,6 +102,7 @@ export default {
   },
   methods: {
     viewHumanActor(humanActor, index) {
+      console.log(humanActor)
       EventBus.$emit("view-humanActor", humanActor);
       this.review();
     },
