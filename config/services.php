@@ -36,11 +36,11 @@ return [
     ],
 
     'firebase' => [
-        'api_key' => 'AIzaSyDKt2EOtxeHzNHhrEN3wRFSmdGUH41dJHg',
-        'auth_domain' => 'legalis-11902.firebaseapp.com',
-        'database_url' => 'https://legalis-11902.firebaseio.com',
-        'secret' => 'rQVpgmfMa8RIqsmpavEHG8hkMnEYtiFIVEwkgOe6',
-        'storage_bucket' => 'legalis-11902.appspot.com',
+        'api_key' => '',
+        'auth_domain' => '',
+        'database_url' => '',
+        'secret' => '',
+        'storage_bucket' => '',
     ],
 
 ];
