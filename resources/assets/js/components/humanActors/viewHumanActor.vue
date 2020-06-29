@@ -1,7 +1,7 @@
 <template>
     
     <div v-if="human" id="viewHumanActor">
-        <h4 class="text-center font-weight-bold">Actor </h4>
+        <h4 class="text-center font-weight-bold">Actor</h4>
         <table class="table table-striped table-sm">
             <tbody>
                 <tr>

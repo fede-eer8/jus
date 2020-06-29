@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::resource('expedientecivil','ExpedienteCivilController');
 
-Route::get('dropdownlist','DataController@getCategorias');
-Route::get('dropdownlist/getmaterias/{id}','DataController@getMaterias');
+// Route::get('dropdownlist','DataController@getCategorias');
+// Route::get('dropdownlist/getmaterias/{id}','DataController@getMaterias');
 
 //Route::get('dropdownlist','DataController@getCategorias');
 Route::get('dropdown/getmaterias/{id}','ExpedienteCivilController@getMaterias');
@@ -52,7 +52,7 @@ Route::post('expedientecivil/{expedientecivil}/documentoupdate','DocumentoContro
 Route::delete('expedientecivil/{expedientecivil}/documentodelete/{id}', 'DocumentoController@destroy');
 Route::get('expedientecivil/{expedientecivil}/documento/{id}', 'DocumentoController@show');
 
-Route::get('tipodocumento', 'TipoDocumentoController@index');
+Route::resource('configuracion', 'ConfiguracionController');
 
 // Route::get('/', function() {
 //     return view('actorhumano.actorhumano');

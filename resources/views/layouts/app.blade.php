@@ -38,10 +38,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item {{ request()->routeIs('expedientecivil*') ? 'active' : '' }}">
-                            <a class="nav-link" href="/expedientecivil">Expedientes Civiles<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/expedientecivil">Expedientes Civiles</a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('configuracion*') ? 'active' : '' }}">
-                            <a class="nav-link" href="/tipodocumento">Configuraciones</a>
+                            <a class="nav-link" href="/configuracion">Configuraciones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>

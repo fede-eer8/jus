@@ -31,6 +31,8 @@ Vue.component('list-ideal-defendant', require('./components/idealDefendants/list
 Vue.component('add-document', require('./components/documents/addDocument.vue'));
 Vue.component('list-document', require('./components/documents/listDocument.vue'));
 Vue.component('view-document', require('./components/documents/viewDocument.vue'));
+Vue.component('add-document-type', require('./components/configurations/documentTypes/addDocumentType.vue'));
+Vue.component('list-document-type', require('./components/configurations/documentTypes/listDocumentType.vue'));
 
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);

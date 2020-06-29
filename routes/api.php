@@ -21,6 +21,8 @@ Route::get('getCategorias', 'APIController@getCategorias');
 Route::get('getMaterias', 'APIController@getMaterias');
 Route::get('getTipoDocumento', 'APIController@getTipoDocumento');
 
+Route::apiResource('tipodocumento', 'APIController');
+
 //Route::resource('actor_humanos', 'ActorHumanoController');
 
 //Route::get('api/actorhumano/{expedientecivil}','ActorHumanoController@index');

@@ -49,7 +49,7 @@ class DocumentoController extends Controller
         $filetype = TipoDocumento::where('id', $filename->tipodoc_id)->first();
         
         if($request->ajax()) {
-            $file = public_path() . "/expcivil/".$expedientecivil->nombre.'/'.$filetype->slug_fd.'/'.$filename->nombre;
+            $file = public_path() . "/storage/expcivil/".$expedientecivil->nombre.'/'.$filetype->slug_fd.'/'.$filename->nombre;
             // $name = substr ( $filename->nombre , 11 );
             // $file->rename($file, $name);
             $headers = [

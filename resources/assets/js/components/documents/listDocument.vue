@@ -40,9 +40,9 @@ export default {
   data() {
     return {
       documentos: [],
+      types: [],
       loading: true,
       show: true,
-      types: [],
     };
   },
   filters: {
@@ -51,6 +51,10 @@ export default {
       value = value.slice(11);
       return value;
     },
+    // valor: function(value) {
+    //   value = types[value].nombre
+    //   return value;
+    // }
   },
   created() {
     EventBus.$on("document-added", data => {
@@ -96,32 +100,48 @@ export default {
     //   this.review();
     // },
     review() {
-      if (this.documentos.length == 0) {
-        this.show = false;
-      } else {
+      if (this.documentos.length > 0 && this.types.length > 0) {
+        //this.getTipoDocumento();
         this.show = true;
+      } else {
+        this.show = false;
       }
-    }
-  },
-  getTipoDocumento: function() {
-      
     },
+    getTipoDocumento() {
+      let types2 = this.types.slice();
+      for (let j = 0; j < this.types.length; j++) {
+        // console.log("documentos con i:"+i,this.documentos[i].tipodoc_id,"types con j: "+j,this.types[j].id)
+        
+        if(j != this.types[j].id) {
+          this.types[this.types[j].id] = types2[j];
+        }
+        console.log("types con j: "+j,this.types[j].id+" types2 con j: "+j,types2[j].id);
+        // if((this.documentos[i].tipodoc_id != this.types[j].id) && (i == j)) {
+          
+        //   type = this.types[this.documentos[i].tipodoc_id];
+        //   this.types[this.documentos[i].tipodoc_id] = this.types[j];
+        //   this.types[j] = type;
+        // }
+      }
+    },
+  },
   mounted() {
-    let currentRoute = window.location.pathname;
-    axios.get(currentRoute + "/documento").then(res => {
-      //console.log(res)
-      this.documentos = res.data;
-      this.loading = false;
-      this.review();
-      console.log("hay :" + this.documentos.length);
-    });
     axios.get("/api/getTipoDocumento")
       .then(
         function(response) {
           this.types = response.data;
+          console.log(response)
           console.log("hay tipos:" + this.types.length);
         }.bind(this)
       );
+    let currentRoute = window.location.pathname;
+    axios.get(currentRoute + "/documento").then(res => {
+      //console.log(res)
+      this.documentos = res.data;
+      console.log("hay documentos:" + this.documentos.length);
+      this.loading = false;
+      this.review();
+    });
     console.log("Component mounted.");
   }
 };
